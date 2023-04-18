@@ -68,6 +68,8 @@ class _MyHomePageState extends State<MyHomePage> {
         throw UnimplementedError('no widget for $selectedIndex');
     }
 
+    var appState = context.watch<MyAppState>();
+    var favsCount = appState.favorites.length;
     return LayoutBuilder(builder: (context, constraints) {
       return Scaffold(
         body: Row(
@@ -82,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   NavigationRailDestination(
                     icon: Icon(Icons.favorite),
-                    label: Text('Favorites'),
+                    label: Text('Favorites ($favsCount)'),
                   ),
                 ],
                 selectedIndex: selectedIndex,
