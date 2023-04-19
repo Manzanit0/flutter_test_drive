@@ -23,7 +23,7 @@ class _LoginState extends State<Login> {
 
     return Scaffold(
         body: Container(
-      color: theme.colorScheme.background,
+      color: theme.colorScheme.primaryContainer,
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(50),
@@ -45,33 +45,40 @@ class _LoginState extends State<Login> {
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8, vertical: 16),
-                        child: TextFormField(
-                          controller: emailController,
-                          decoration: const InputDecoration(
-                              border: OutlineInputBorder(), labelText: "Email"),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your email';
-                            }
-                            return null;
-                          },
+                        child: Container(
+                          color: theme.colorScheme.background,
+                          child: TextFormField(
+                            controller: emailController,
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: "Email"),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your email';
+                              }
+                              return null;
+                            },
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8, vertical: 16),
-                        child: TextFormField(
-                          controller: passwordController,
-                          obscureText: true,
-                          decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: "Password"),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your password';
-                            }
-                            return null;
-                          },
+                        child: Container(
+                          color: theme.colorScheme.background,
+                          child: TextFormField(
+                            controller: passwordController,
+                            obscureText: true,
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: "Password"),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your password';
+                              }
+                              return null;
+                            },
+                          ),
                         ),
                       ),
                       Padding(
