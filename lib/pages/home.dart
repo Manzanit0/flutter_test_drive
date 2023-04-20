@@ -32,40 +32,31 @@ class _HomePageState extends State<HomePage> {
         throw UnimplementedError('no widget for $selectedIndex');
     }
 
-    var appState = context.watch<ApplicationState>();
-    var favsCount = appState.favorites.length;
     return LayoutBuilder(builder: (context, constraints) {
       return Scaffold(
-        body: Row(
-          children: [
-            SafeArea(
-              child: NavigationRail(
-                extended: constraints.maxWidth >= 600,
-                destinations: [
-                  NavigationRailDestination(
-                    icon: Icon(Icons.home),
-                    label: Text('Home'),
-                  ),
-                  NavigationRailDestination(
-                    icon: Icon(Icons.favorite),
-                    label: Text('Favorites ($favsCount)'),
-                  ),
-                ],
-                selectedIndex: selectedIndex,
-                onDestinationSelected: (value) {
-                  setState(() {
-                    selectedIndex = value;
-                  });
-                },
-              ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
             ),
-            Expanded(
-              child: Container(
-                color: Theme.of(context).colorScheme.primaryContainer,
-                child: page,
-              ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.favorite),
+              label: 'Favourites',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Profile',
             ),
           ],
+          currentIndex: selectedIndex,
+          onTap: (int index) => setState(() {
+            selectedIndex = index;
+          }),
+        ),
+        body: Container(
+          color: Theme.of(context).colorScheme.primaryContainer,
+          child: page,
         ),
       );
     });
