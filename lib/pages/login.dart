@@ -93,7 +93,8 @@ class _LoginState extends State<Login> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => HomePage()),
+                                        builder: (context) =>
+                                            HomePage(emailController.text)),
                                   );
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(

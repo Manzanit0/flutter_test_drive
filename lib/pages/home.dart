@@ -4,11 +4,18 @@ import 'package:flutter_test_drive/state.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
+  String user;
+
+  HomePage(this.user);
+
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState(user);
 }
 
 class _HomePageState extends State<HomePage> {
+  String user;
+  _HomePageState(this.user); // we can now use this to greet
+
   var selectedIndex = 0;
 
   @override
