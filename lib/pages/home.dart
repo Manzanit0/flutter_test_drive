@@ -29,7 +29,8 @@ class _HomePageState extends State<HomePage> {
         page = FavouritesPage();
         break;
       default:
-        throw UnimplementedError('no widget for $selectedIndex');
+        page = ProfilePage(user);
+        break;
     }
 
     return LayoutBuilder(builder: (context, constraints) {
@@ -128,6 +129,45 @@ class FavouritesPage extends StatelessWidget {
             //           title: Text(e.asLowerCase),
             //         ))
             //     .toList(),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class ProfilePage extends StatelessWidget {
+  String loggedUser;
+
+  ProfilePage(this.loggedUser);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final style = theme.textTheme.displayMedium!.copyWith(
+      color: theme.colorScheme.primary,
+    );
+
+    return ListView(
+      children: [
+        Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Center(
+                  child: Text(
+                'Profile',
+                style: style,
+              )),
+            ),
+            ListTile(
+              leading: Icon(Icons.person),
+              title: Text("User: $loggedUser"),
+            ),
+            ListTile(
+              leading: Icon(Icons.date_range),
+              title: Text("Logged in: 12/02/2021 at 12:32PM"),
+            )
           ],
         ),
       ],
