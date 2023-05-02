@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_test_drive/data/data.dart';
 import 'package:flutter_test_drive/pages/home.dart';
 
 class Login extends StatefulWidget {
@@ -86,10 +87,11 @@ class _LoginState extends State<Login> {
                             horizontal: 8, vertical: 16.0),
                         child: Center(
                           child: ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               if (_formKey.currentState!.validate()) {
                                 if (emailController.text == "foo" &&
                                     passwordController.text == "bar") {
+                                  await setLoggedUser("foo");
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
