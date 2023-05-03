@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_test_drive/api/api.dart';
 import 'package:flutter_test_drive/components/big_card.dart';
 import 'package:flutter_test_drive/data/data.dart';
 import 'package:flutter_test_drive/pages/login.dart';
@@ -28,7 +29,7 @@ class _HomePageState extends State<HomePage> {
         page = GeneratorPage();
         break;
       case 1:
-        page = FavouritesPage();
+        page = RecipesPage();
         break;
       default:
         page = ProfilePage(user);
@@ -44,8 +45,8 @@ class _HomePageState extends State<HomePage> {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              label: 'Favourites',
+              icon: Icon(Icons.format_list_bulleted_rounded),
+              label: 'Recipes',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
@@ -110,30 +111,74 @@ class GeneratorPage extends StatelessWidget {
   }
 }
 
-class FavouritesPage extends StatelessWidget {
+class RecipesPage extends StatefulWidget {
+  @override
+  State<RecipesPage> createState() => _RecipesPageState();
+}
+
+class _RecipesPageState extends State<RecipesPage> {
+  late Future<List<Recipe>> futureRecipes;
+  @override
+  void initState() {
+    super.initState();
+    futureRecipes = listRecipes();
+  }
+
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<ApplicationState>();
-    return ListView(
-      children: [
-        Column(
-          children: [
-            Center(child: Text('Your favs:')),
-            for (var pair in appState.favorites)
-              ListTile(
-                leading: Icon(Icons.favorite),
-                title: Text(pair.asLowerCase),
-              )
-            // TODO: how to refactor to map?
-            // appState.favorites
-            //     .map((e) => ListTile(
-            //           leading: Icon(Icons.favorite),
-            //           title: Text(e.asLowerCase),
-            //         ))
-            //     .toList(),
-          ],
-        ),
-      ],
+    final theme = Theme.of(context);
+    final style = theme.textTheme.displayMedium!.copyWith(
+      color: theme.colorScheme.primary,
+    );
+
+    return FutureBuilder<List<Recipe>>(
+      future: futureRecipes,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return ListView(
+            children: [
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Center(
+                        child: Text(
+                      'Recipes',
+                      style: style,
+                    )),
+                  ),
+                  for (var recipe in snapshot.data!)
+                    ListTile(
+                      leading: Icon(Icons.featured_play_list_rounded),
+                      title: Text(recipe.name!),
+                    )
+                ],
+              ),
+            ],
+          );
+        } else if (snapshot.hasError) {
+          return Text('${snapshot.error}');
+        }
+
+        return ListView(children: [
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Center(
+                    child: Text(
+                  'Recipes',
+                  style: style,
+                )),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: CircularProgressIndicator(),
+              ),
+            ],
+          ),
+        ]);
+      },
     );
   }
 }
