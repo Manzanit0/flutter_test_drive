@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test_drive/components/big_card.dart';
+import 'package:flutter_test_drive/data/data.dart';
+import 'package:flutter_test_drive/pages/login.dart';
 import 'package:flutter_test_drive/state.dart';
 import 'package:provider/provider.dart';
 
@@ -167,7 +169,21 @@ class ProfilePage extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.date_range),
               title: Text("Logged in: 12/02/2021 at 12:32PM"),
-            )
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: ElevatedButton.icon(
+                onPressed: () async {
+                  await logout();
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Login(title: "Login")));
+                },
+                icon: Icon(Icons.logout),
+                label: Text('Logout'),
+              ),
+            ),
           ],
         ),
       ],

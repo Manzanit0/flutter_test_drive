@@ -9,3 +9,8 @@ Future<bool> setLoggedUser(String user) async {
   final prefs = await SharedPreferences.getInstance();
   return prefs.setString("logged_user", user);
 }
+
+Future<bool> logout() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.remove("logged_user");
+}
