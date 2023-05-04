@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
         page = RecipesPage();
         break;
       default:
-        page = ProfilePage(user);
+        page = SettingsPage(user);
         break;
     }
 
@@ -49,8 +49,8 @@ class _HomePageState extends State<HomePage> {
               label: 'Recipes',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
+              icon: Icon(Icons.settings),
+              label: 'Settings',
             ),
           ],
           currentIndex: selectedIndex,
@@ -183,10 +183,10 @@ class _RecipesPageState extends State<RecipesPage> {
   }
 }
 
-class ProfilePage extends StatelessWidget {
+class SettingsPage extends StatelessWidget {
   String loggedUser;
 
-  ProfilePage(this.loggedUser);
+  SettingsPage(this.loggedUser);
 
   @override
   Widget build(BuildContext context) {
@@ -203,7 +203,7 @@ class ProfilePage extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               child: Center(
                   child: Text(
-                'Profile',
+                'Settings',
                 style: style,
               )),
             ),
