@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test_drive/api/api.dart';
 import 'package:flutter_test_drive/components/big_card.dart';
 import 'package:flutter_test_drive/data/data.dart';
+import 'package:flutter_test_drive/pages/create_recipe.dart';
 import 'package:flutter_test_drive/pages/login.dart';
 import 'package:flutter_test_drive/state.dart';
 import 'package:provider/provider.dart';
@@ -135,26 +136,40 @@ class _RecipesPageState extends State<RecipesPage> {
       future: futureRecipes,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return ListView(
-            children: [
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Center(
-                        child: Text(
-                      'Recipes',
-                      style: style,
-                    )),
-                  ),
-                  for (var recipe in snapshot.data!)
-                    ListTile(
-                      leading: Icon(Icons.featured_play_list_rounded),
-                      title: Text(recipe.name!),
-                    )
-                ],
-              ),
-            ],
+          return Scaffold(
+            backgroundColor: theme.colorScheme.primaryContainer,
+            body: ListView(
+              children: [
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Center(
+                          child: Text(
+                        'Recipes',
+                        style: style,
+                      )),
+                    ),
+                    for (var recipe in snapshot.data!)
+                      ListTile(
+                        leading: Icon(Icons.featured_play_list_rounded),
+                        title: Text(recipe.name!),
+                      )
+                  ],
+                ),
+              ],
+            ),
+            floatingActionButton: FloatingActionButton(
+              hoverColor: theme.colorScheme.secondary,
+              backgroundColor: theme.colorScheme.primary,
+              child: const Icon(Icons.add),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CreateRecipePage()));
+              },
+            ),
           );
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
