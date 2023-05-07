@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_test_drive/api/api.dart';
 import 'package:flutter_test_drive/data/data.dart';
 import 'package:flutter_test_drive/pages/home.dart';
 import 'package:flutter_test_drive/pages/login.dart';
 import 'package:flutter_test_drive/state.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  initServices();
   runApp(MyApp());
+}
+
+void initServices() {
+  GetIt.I.registerSingleton<CookbookClient>(
+      CookbookClient('https://inconclusive-things-production.up.railway.app'));
 }
 
 class MyApp extends StatefulWidget {

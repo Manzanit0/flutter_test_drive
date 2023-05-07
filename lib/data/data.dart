@@ -10,6 +10,16 @@ Future<bool> setLoggedUser(String user) async {
   return prefs.setString("logged_user", user);
 }
 
+Future<String?> getCookbookToken() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getString("cookbook_token");
+}
+
+Future<bool> setCookbookToken(String token) async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.setString("cookbook_token", token);
+}
+
 Future<bool> logout() async {
   final prefs = await SharedPreferences.getInstance();
   return prefs.remove("logged_user");

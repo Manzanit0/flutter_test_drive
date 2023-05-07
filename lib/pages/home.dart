@@ -5,6 +5,7 @@ import 'package:flutter_test_drive/data/data.dart';
 import 'package:flutter_test_drive/pages/create_recipe.dart';
 import 'package:flutter_test_drive/pages/login.dart';
 import 'package:flutter_test_drive/state.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -123,6 +124,16 @@ class _RecipesPageState extends State<RecipesPage> {
   void initState() {
     super.initState();
     futureRecipes = listRecipes();
+
+    var cookbook = GetIt.instance<CookbookClient>();
+
+    try {
+      futureRecipes = cookbook.listRecipes();
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Failed to get recipes')),
+      );
+    }
   }
 
   @override

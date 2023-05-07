@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_test_drive/api/api.dart';
 import 'package:flutter_test_drive/data/data.dart';
 import 'package:flutter_test_drive/pages/home.dart';
+import 'package:get_it/get_it.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key, required this.title}) : super(key: key);
@@ -89,16 +91,20 @@ class _LoginState extends State<Login> {
                           child: ElevatedButton(
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
-                                if (emailController.text == "foo" &&
-                                    passwordController.text == "bar") {
-                                  await setLoggedUser("foo");
+                                var cookbook = GetIt.instance<CookbookClient>();
+
+                                try {
+                                  var token = await cookbook.signIn(
+                                      emailController.text,
+                                      passwordController.text);
+                                  await setCookbookToken(token);
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             HomePage(emailController.text)),
                                   );
-                                } else {
+                                } catch (e) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                         content: Text('Invalid Credentials')),

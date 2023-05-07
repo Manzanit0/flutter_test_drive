@@ -112,3 +112,57 @@ Future<List<Recipe>> listRecipes() async {
     throw Exception('Failed to fetch recipes');
   }
 }
+
+class CookbookClient {
+  String host;
+  String? email;
+  String? password;
+  String? token;
+
+  CookbookClient(this.host);
+
+  Future<String> signIn(String email, String password) async {
+    this.email = email;
+    this.password = password;
+
+    var url = Uri.parse('$host/api/login');
+
+    final response =
+        await http.post(url, body: {'email': email, 'password': password});
+
+    if (response.statusCode != 200) {
+      throw Exception('failed to authenticate');
+    }
+
+    var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+    token = decodedResponse['token'] as String;
+    return token!;
+  }
+
+  Future<String> reIssueAuthToken() async {
+    if (email == null || password == null) {
+      throw Exception('need to sign-in first with email/password');
+    }
+
+    return signIn(email!, password!);
+  }
+
+  Future<List<Recipe>> listRecipes() async {
+    // FIXME: ideally what we want to do here is execute a login() call if the
+    // the request returns a 401.
+    //
+    // TODO: Might be worth to track expiration too as an optimisation? -> 2 req
+    // as opposed to 3.
+    await reIssueAuthToken();
+
+    var url = Uri.parse('$host/api/recipes');
+    final response =
+        await http.get(url, headers: {'Authorization': 'Bearer $token'});
+
+    if (response.statusCode == 200) {
+      return ListRecipesResponse.fromJson(jsonDecode(response.body)).recipes!;
+    } else {
+      throw Exception('Failed to fetch recipes');
+    }
+  }
+}
