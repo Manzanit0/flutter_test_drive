@@ -4,6 +4,7 @@ import 'package:flutter_test_drive/components/big_card.dart';
 import 'package:flutter_test_drive/data/data.dart';
 import 'package:flutter_test_drive/pages/create_recipe.dart';
 import 'package:flutter_test_drive/pages/login.dart';
+import 'package:flutter_test_drive/pages/show_recipe.dart';
 import 'package:flutter_test_drive/state.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
@@ -163,6 +164,10 @@ class _RecipesPageState extends State<RecipesPage> {
                     ),
                     for (var recipe in snapshot.data!)
                       ListTile(
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ShowRecipePage(recipe))),
                         leading: Icon(Icons.featured_play_list_rounded),
                         title: Text(recipe.name!),
                       )

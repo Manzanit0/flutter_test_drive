@@ -6,7 +6,14 @@ class CreateRecipePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Create Recipe",
+        ),
+        backgroundColor: theme.colorScheme.primary,
+      ),
       body: Container(
           color: theme.colorScheme.primaryContainer,
           child: Padding(
@@ -86,15 +93,6 @@ class CreateRecipeFormState extends State<CreateRecipeForm> {
           Row(children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text('Cancel'),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
               child: ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
