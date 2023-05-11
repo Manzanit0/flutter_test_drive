@@ -168,7 +168,7 @@ class _RecipesPageState extends State<RecipesPage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ShowRecipePage(recipe))),
-                        leading: Icon(Icons.featured_play_list_rounded),
+                        leading: Icon(Icons.bookmark),
                         title: Text(recipe.name!),
                       )
                   ],
