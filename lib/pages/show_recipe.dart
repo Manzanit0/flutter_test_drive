@@ -19,50 +19,72 @@ class ShowRecipePage extends StatelessWidget {
       ),
       // deluge-citadel-lethargic
       body: Container(
+        height: MediaQuery.of(context).size.height,
         color: theme.colorScheme.primaryContainer,
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: ListView(
-            children: [
-              Column(
-                children: [
-                  ListTile(
-                    title: Text("Metadata"),
-                  ),
-                  ListTile(
+            padding: const EdgeInsets.all(20.0),
+            child: SingleChildScrollView(
+              child: Column(children: [
+                ListTile(
                     leading: Icon(Icons.share),
                     title: Text("External URL"),
-                    subtitle: Text(recipe.externalUrl ?? "empty url"),
+                    subtitle: Text(recipe.externalUrl!)),
+                ExpansionTile(
+                  title: Text(
+                    "Categories",
+                    style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic),
                   ),
-                  ListTile(
-                    title: Text("Categories"),
-                  ),
-                  for (var category in recipe.categories ?? [])
-                    ListTile(
-                      leading: Icon(Icons.category),
-                      title: Text(category.master ?? "empty master"),
-                      subtitle: Text(category.name ?? "empty name"),
+                  children: <Widget>[
+                    Column(
+                      children: [
+                        for (Category content in recipe.categories!)
+                          ListTile(
+                            title: Text(
+                              "${content.master}: ${content.name!}",
+                            ),
+                            leading: Icon(Icons.category),
+                          )
+                      ],
                     ),
-                  ListTile(
-                    title: Text("Ingredients"),
+                  ],
+                ),
+                ExpansionTile(
+                  title: Text(
+                    "Ingredients",
+                    style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic),
                   ),
-                  for (var ingredient in recipe.ingredients ?? [])
-                    ListTile(
-                      leading: Icon(Icons.task_alt),
-                      title: Text(ingredient ?? "empty master"),
+                  children: <Widget>[
+                    Column(
+                      children: _buildExpandableIngredients(recipe),
                     ),
-                  ListTile(
-                    title: Text("Description"),
-                  ),
-                  ListTile(
-                    title: Text(recipe.description ?? ""),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
+                  ],
+                ),
+              ]),
+            )),
       ),
     );
+  }
+
+  _buildExpandableIngredients(Recipe vehicle) {
+    List<Widget> columnContent = [];
+
+    for (String ingredient in vehicle.ingredients!) {
+      columnContent.add(
+        ListTile(
+          title: Text(
+            ingredient,
+          ),
+          leading: Icon(Icons.task_alt),
+        ),
+      );
+    }
+
+    return columnContent;
   }
 }
