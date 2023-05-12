@@ -17,7 +17,7 @@ class ShowRecipePage extends StatelessWidget {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
-              title: Text(recipe.name!),
+              title: Text(recipe.name),
               backgroundColor: theme.backgroundColor,
               pinned: true,
               floating: true,
@@ -57,10 +57,10 @@ class ShowRecipePage extends StatelessWidget {
                         children: <Widget>[
                           Column(
                             children: [
-                              for (Category content in recipe.categories!)
+                              for (Category content in recipe.categories)
                                 ListTile(
                                   title: Text(
-                                    "${content.master}: ${content.name!}",
+                                    "${content.master}: ${content.name}",
                                   ),
                                   leading: Icon(Icons.category),
                                 )
@@ -101,7 +101,7 @@ class ShowRecipePage extends StatelessWidget {
   _buildExpandableIngredients(Recipe vehicle) {
     List<Widget> columnContent = [];
 
-    for (String ingredient in vehicle.ingredients!) {
+    for (String ingredient in vehicle.ingredients) {
       columnContent.add(
         ListTile(
           title: Text(

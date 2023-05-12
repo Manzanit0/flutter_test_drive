@@ -124,8 +124,6 @@ class _RecipesPageState extends State<RecipesPage> {
   @override
   void initState() {
     super.initState();
-    futureRecipes = listRecipes();
-
     var cookbook = GetIt.instance<CookbookClient>();
 
     try {
@@ -169,7 +167,7 @@ class _RecipesPageState extends State<RecipesPage> {
                             MaterialPageRoute(
                                 builder: (context) => ShowRecipePage(recipe))),
                         leading: Icon(Icons.bookmark),
-                        title: Text(recipe.name!),
+                        title: Text(recipe.name),
                       )
                   ],
                 ),
