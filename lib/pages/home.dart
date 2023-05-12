@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test_drive/api/api.dart';
-import 'package:flutter_test_drive/components/big_card.dart';
 import 'package:flutter_test_drive/data/data.dart';
 import 'package:flutter_test_drive/pages/create_recipe.dart';
 import 'package:flutter_test_drive/pages/login.dart';
 import 'package:flutter_test_drive/pages/show_recipe.dart';
-import 'package:flutter_test_drive/state.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   String user;
@@ -30,9 +27,6 @@ class _HomePageState extends State<HomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = GeneratorPage();
-        break;
-      case 1:
         page = RecipesPage();
         break;
       default:
@@ -51,10 +45,6 @@ class _HomePageState extends State<HomePage> {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.format_list_bulleted_rounded),
-              label: 'Recipes',
-            ),
-            BottomNavigationBarItem(
               icon: Icon(Icons.settings),
               label: 'Settings',
             ),
@@ -70,50 +60,6 @@ class _HomePageState extends State<HomePage> {
         ),
       );
     });
-  }
-}
-
-class GeneratorPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<ApplicationState>();
-    var pair = appState.current;
-
-    IconData icon;
-    if (appState.favorites.contains(pair)) {
-      icon = Icons.favorite;
-    } else {
-      icon = Icons.favorite_border;
-    }
-
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          BigCard(pair: pair),
-          SizedBox(height: 10),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ElevatedButton.icon(
-                onPressed: () {
-                  appState.toggleFavorite();
-                },
-                icon: Icon(icon),
-                label: Text('Like'),
-              ),
-              SizedBox(width: 10),
-              ElevatedButton(
-                onPressed: () {
-                  appState.getNext();
-                },
-                child: Text('Next'),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
   }
 }
 
