@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test_drive/api/api.dart';
-import 'package:flutter_test_drive/data/data.dart';
-import 'package:flutter_test_drive/pages/create_recipe.dart';
-import 'package:flutter_test_drive/pages/login.dart';
-import 'package:flutter_test_drive/pages/show_recipe.dart';
+import 'package:cookbook/api/api.dart';
+import 'package:cookbook/data/data.dart';
+import 'package:cookbook/pages/create_recipe.dart';
+import 'package:cookbook/pages/login.dart';
+import 'package:cookbook/pages/show_recipe.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 

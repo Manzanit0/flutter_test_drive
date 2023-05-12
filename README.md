@@ -1,4 +1,3 @@
-# Flutter test drive
+# Cookbook
 
-Result of following the Google [Your first Flutter app](https://codelabs.developers.google.com/codelabs/flutter-codelab-first)
-codelab.
+The mobile app for https://github.com/Manzanit0/cookbook.

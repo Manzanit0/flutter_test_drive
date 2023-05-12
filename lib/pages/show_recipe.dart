@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test_drive/api/api.dart';
+import 'package:cookbook/api/api.dart';
 
 class ShowRecipePage extends StatelessWidget {
   final Recipe recipe;

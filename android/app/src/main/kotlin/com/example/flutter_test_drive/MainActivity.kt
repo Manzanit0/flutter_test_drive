@@ -1,4 +1,4 @@
-package com.example.flutter_test_drive
+package com.manzanit0.cookbook
 
 import io.flutter.embedding.android.FlutterActivity
 
