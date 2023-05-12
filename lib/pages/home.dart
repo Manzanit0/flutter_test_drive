@@ -7,6 +7,7 @@ import 'package:flutter_test_drive/pages/login.dart';
 import 'package:flutter_test_drive/pages/show_recipe.dart';
 import 'package:flutter_test_drive/state.dart';
 import 'package:get_it/get_it.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -35,7 +36,9 @@ class _HomePageState extends State<HomePage> {
         page = RecipesPage();
         break;
       default:
-        page = SettingsPage(user);
+        // TODO: this should be stored at login time.
+        page = SettingsPage(
+            user, DateFormat.yMEd().add_jms().format(DateTime.now()));
         break;
     }
 
@@ -214,8 +217,9 @@ class _RecipesPageState extends State<RecipesPage> {
 
 class SettingsPage extends StatelessWidget {
   String loggedUser;
+  String loggedInAt;
 
-  SettingsPage(this.loggedUser);
+  SettingsPage(this.loggedUser, this.loggedInAt);
 
   @override
   Widget build(BuildContext context) {
@@ -242,7 +246,7 @@ class SettingsPage extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.date_range),
-              title: Text("Logged in: 12/02/2021 at 12:32PM"),
+              title: Text("Logged in: $loggedInAt"),
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
